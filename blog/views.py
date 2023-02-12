@@ -135,7 +135,7 @@ def companyGraph(request,cmpname=None):
     f = open('StockCode.json')
     data=json.load(f)
     CompanyNames=data.keys()
-    
+        
     if cmpname==None:
         context={
              'CompanyNames':CompanyNames,
@@ -155,6 +155,7 @@ def companyGraph(request,cmpname=None):
             cnt=cnt+1
 
         cmpId=data[cmpname]    
+        
 
         code=f'''<div>
         <div class="container">
@@ -183,9 +184,21 @@ def companyGraph(request,cmpname=None):
             </script>
         </div>
     </div> '''
+        quantity=1
+        f2="sell" in request.POST
+        f1="buy" in request.POST
+        if f1 or f2 :
+            if f1:
+                quantity=int(request.POST.get('quantity'))
+                calling(cmpId,quantity,1)
+            else:
+                quantity=int(request.POST.get('quantity'))
+                calling(cmpId,quantity,2)    
+        
         context={
             'CompanyNames':CompanyNames,
             'code':code,
             'id':0,
+            'quantity':quantity
         }
         return render(request,'companyChart.html',context)  

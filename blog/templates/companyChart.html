@@ -79,6 +79,22 @@
 <br>
 <center><b>No Company Selected Please Select any Company</b></center>
 {% else %}
+    <br>
+    <form method="POST" action=""> 
+         {% csrf_token %}
+         <div class="container">
+         
+          <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Quantity</label>
+          <div class="col-sm-10">
+            <input type="number" step="1"  name="quantity" class="form-control"  placeholder="Enter Quantity for buy or sell" min="1" value="{{quantity}}">
+        </div>
+      </div>
+        <center> <button name="buy" class="btn btn-primary" type="submit">Buy</button> <button name="sell" class="btn btn-danger" type="submit">Sell</button>  </center>
+      </div>
+    </form>  
+    <br>
+    <br>
    {{code|safe}}
 {% endif %}
 
