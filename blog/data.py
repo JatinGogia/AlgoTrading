@@ -14,7 +14,7 @@ import sqlite3
 def fetchCompanyData(cmpName):
     f = open('StockCode.json')
     data=json.load(f)
-    url = (f'''https://newsapi.org/v2/everything?q={data[cmpName]}&from=2022-11-01&sortBy=popularity&apiKey=07b2c6a4274c43a399ad60bf453b81fe''')
+    url = (f'''https://newsapi.org/v2/everything?q={data[cmpName]}&from=2023-04-05&sortBy=popularity&apiKey=07b2c6a4274c43a399ad60bf453b81fe''')
     response = requests.get(url)
     if len(response.json()['articles'])==0:
         return f"No News available for {cmpName}"

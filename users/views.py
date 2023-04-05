@@ -3,7 +3,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserUpdateForm
+import json
+from blog.models import *
 # , ProfileUpdateForm
+
+f = open('StockCode.json')
+data=json.load(f)
+CompanyNames=data.keys()
+
 def register(request):
     # function which checks the details and gives access to register 
     if request.method == 'POST':
@@ -12,11 +19,15 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
+            api=request.POST.get('api')
+            Id=User.objects.filter(username=username)[0].id
+            obj=AliceBlueApi(author_id=Id,alice_blue_api=api)
+            obj.save()
             return redirect('login')
     else:
         form = UserRegistrationForm()
         
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html', {'form': form,'register':1,'CompanyNames':CompanyNames})
 
 
 # @login_required
