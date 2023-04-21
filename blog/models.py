@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 import jsonfield
+
+
 # Post Table DataBase
 class Post(models.Model):
     title = models.CharField(max_length=100)

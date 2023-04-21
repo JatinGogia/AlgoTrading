@@ -190,8 +190,8 @@ def companyGraph(request,cmpname=None):
                 var companies = [{Array}]
             new TradingView.widget(
             \u007b
-            "width": 600,
-            "height": 410,
+            "width": 820,
+            "height": 570,
             "symbol": companies[{Index}],
             "interval": "D",
             "timezone": "Etc/UTC",
@@ -234,22 +234,32 @@ def companyGraph(request,cmpname=None):
 def portfolio(request):
     if request.method=="POST": 
         
-        obj=request.POST.getlist("select")
-        cmp_objj={}
-        for i in obj:
-            cmp_objj[i]=0
+        if "apply1" in request.POST:
+            obj=request.POST.getlist("select")
+            cmp_objj={}
+            cmp=[]
+            for i in obj:
+                cmp.append(i)
+                cmp_objj[i]=0
 
-        Id=User.objects.filter(username=request.user)[0].id 
-        Id1=0  
-        if len(dbobj.objects.filter(author_id=Id))==0:
-            dbobj=portfolioDb(author_id=Id,compnay=cmp_objj)    
-            dbobj.save()
-            Id1=1
-        else:
-              pass
+            Id=User.objects.filter(username=request.user)[0].id 
+            Id1=0  
+            
+            if len(portfolioDb.objects.filter(author_id=Id))==0:
+                dbobj=portfolioDb(author_id=Id,compnay=cmp_objj)    
+                dbobj.save()
+                Id1=1
+            else:
+                obj=portfolioDb.objects.filter(author_id=Id)[0].compnay
+                for i in cmp:
+                    if i not in obj.keys():
+                        obj[i]=0
+                portfolioDb.objects.filter(author_id=Id).update(compnay=obj)   
+                Id1=1     
 
-        context={'CompanyNames':CompanyNames}
-        return render(request,'portfolio.html',context)
+
+                context={'CompanyNames':CompanyNames,'Id1':Id1,'cmp':cmp}
+                return render(request,'portfolio.html',context)
     else:
         print(request.user)
         context={'CompanyNames':CompanyNames}
@@ -270,8 +280,8 @@ def Homepage(request):
                 var companies = [{Array}]
             new TradingView.widget(
             \u007b
-            "width": 580,
-            "height": 410,
+            "width": 820,
+            "height": 570,
             "interval": "D",
             "timezone": "Etc/UTC",
             "theme": "dark",

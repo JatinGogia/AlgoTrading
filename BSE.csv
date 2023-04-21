@@ -3616,7 +3616,7 @@ BSE,bse_cm,GRSE,542011,E,Garden Reach Shipbuilders & En,Garden Reach Shipbuilder
 BSE,bse_cm,AAL,542012,E,A-1 Acid Limited,A-1 Acid Limited,1,0.05,AAL
 BSE,bse_cm,DOLFIN,542013,E,Dolfin Rubbers Limited,Dolfin Rubbers Limited,1,0.05,DOLFIN
 BSE,bse_cm,SHUBHAM,542019,E,Shubham Polyspin Limited,Shubham Polyspin Limited,1,0.01,SHUBHAM
-BSE,bse_cm,AKI,542020,E,AKI India Limited,AKI India Limited,1300,0.01,AKI
+BSE,bse_cm,AKI,542020,E,AKI India Limited,AKI India Limited,1,0.01,AKI
 BSE,bse_cm,SUNRETAIL,542025,E,Sun Retail Limited,Sun Retail Limited,48000,0.01,SUNRETAIL
 BSE,bse_cm,SMGOLD,542034,E,S. M. Gold Limited,S. M. Gold Limited,1,0.01,SMGOLD
 BSE,bse_cm,VIVIDM,542046,E,VIVID MERCANTILE LIMITED,VIVID MERCANTILE LIMITED,1,0.01,VIVIDM
@@ -4606,6 +4606,7 @@ BSE,bse_cm,SFMP82DD,543868,E,SBI Mutual Fund,SBI Mutual Fund,1,0.01,SFMP82DD
 BSE,bse_cm,KTKFMP310RG,543871,E,Kotak Mahindra Mutual Fund,Kotak Mahindra Mutual Fund,1,0.01,KTKFMP310RG
 BSE,bse_cm,KTKFMP310RI,543872,E,Kotak Mahindra Mutual Fund,Kotak Mahindra Mutual Fund,1,0.01,KTKFMP310RI
 BSE,bse_cm,KTKFMP310DG,543873,E,Kotak Mahindra Mutual Fund,Kotak Mahindra Mutual Fund,1,0.01,KTKFMP310DG
+BSE,bse_cm,MAIDEN,543874,E,Maiden Forgings Limited,Maiden Forgings Limited,2000,0.01,MAIDEN
 BSE,bse_cm,ICICISENSX,555555,E,ICICI Prudential Sensex ETF,ICICI Prudential Sensex ETF,1,0.01,ICICISENSX
 BSE,bse_cm,TATAMTRDVR,570001,E,TATA MOTORS LTD - DVR,TATA MOTORS LTD - DVR,1,0.05,TATAMTRDVR
 BSE,bse_cm,FELDVR,570002,E,Future Enterprises Limited,Future Enterprises Limited,1,0.01,FELDVR
@@ -4665,7 +4666,6 @@ BSE,bse_cm,AIRTELPP,890157,E,Bharti Airtel  Ltd.,Bharti Airtel  Ltd.,1,0.05,AIRT
 BSE,bse_cm,AURUMPP,890168,E,Aurum PropTech Limited,Aurum PropTech Limited,1,0.01,AURUMPP
 BSE,bse_cm,COASTPP,890174,E,Coastal Corporation Limited,Coastal Corporation Limited,1,0.05,COASTPP
 BSE,bse_cm,GGLPP,890175,E,Gautam Gems Limited,Gautam Gems Limited,1,0.01,GGLPP
-BSE,bse_cm,RUNGTAPP,890178,E,Rungta Irrigation Ltd.,Rungta Irrigation Ltd.,1,0.01,RUNGTAPP
 BSE,bse_cm,ADCONPP,890179,E,Adcon Capital Services Limited,Adcon Capital Services Limited,1,0.01,ADCONPP
 BSE,bse_cm,AARTIPP,890180,E,Aarti Surfactants Limited,Aarti Surfactants Limited,1,0.05,AARTIPP
 BSE,bse_cm,SGRLPP,890181,E,Shree Ganesh Remedies Limited,Shree Ganesh Remedies Limited,1,0.05,SGRLPP
