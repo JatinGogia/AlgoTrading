@@ -103,10 +103,57 @@
     </div>
   </div>
      <center><button type="submit" class="btn btn-primary" name="apply1">Apply</button></center>
+     <br>
+     <center> <button type="submit" class="btn btn-primary" name="apply2">View Portfolio</button> </center>
     
 
 
 </form>    
+
+<br>
+<br>
+{% if Id1 == 1 %}
+<form action="" method="POST">
+  {%csrf_token%}
+<div class="container">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i,j in cmp.items %}
+   
+    {% if j != 0 and j != "0" %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{i}}</td>
+      <td><input value="{{j}}" type="number" step="1" name="{{i}}"></td>
+    </tr>
+    {% elif add == 1 %}
+
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{i}}</td>
+      <td><input value="{{j}}" type="number" step="1" name="{{i}}"></td>
+    </tr>
+
+    {% endif %}
+
+
+    {% endfor %}
+    
+  </tbody>
+</table>
+<center><button type="submit" class="btn btn-primary"> Change Quantity</button></center>
+</div>
+</form>
+<br>
+<br>
+{% endif %}
 
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/popper.min.js"></script>

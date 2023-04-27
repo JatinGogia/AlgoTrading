@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-    {{code|safe}}
+    
+{% if home == 1 %}
+ <center><h3>Top 3 Trending companies are </h3></center>
+ {% for i in recommend %}
+    <center><p><b> {{forloop.counter}} {{i}} </b></p></center>
+ {% endfor %} 
+
+{% else %}   
+   <center><h5>Trend for the {{cmpname}} is {{trend}}</h5></center>
+{% endif %}
+
+   {{code|safe}}
     {% if user.is_authenticated %}
     {% if id == 0 %}
-       <form method="post" action="">
+      
+
+      <form method="post" action="">
          {% csrf_token %}
           <div class="input-group mb-3">
             <div class="input-group-prepend">

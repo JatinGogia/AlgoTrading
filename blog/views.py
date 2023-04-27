@@ -8,6 +8,12 @@ from django.views.generic import (ListView, DetailView,
 from .data import *
 from django.contrib.auth.models import User
 from .models import *
+from recommendation.fundamental_recommendation import *
+from recommendation.prediction import *
+
+
+
+
 # from django.conf import settings
 # User = settings.AUTH_USER_MODEL
 
@@ -15,6 +21,9 @@ from .models import *
 f = open('StockCode.json')
 data=json.load(f)
 CompanyNames=data.keys()
+
+
+
 
 def home(request):
     # making dictionary of all the posts records from the database
@@ -179,6 +188,7 @@ def companyGraph(request,cmpname=None):
             cnt=cnt+1
 
         cmpId=data[cmpname]    
+
         
 
         code=f'''<div>
@@ -218,12 +228,14 @@ def companyGraph(request,cmpname=None):
             else:
                 quantity=int(request.POST.get('quantity'))
                 calling(cmpId,quantity,2)    
-        
+        trend=predict_trend(cmpId)
         context={
             'CompanyNames':CompanyNames,
             'code':code,
             'id':0,
-            'quantity':quantity
+            'quantity':quantity,
+            'trend':trend,
+            'cmpname':cmpname
         }
         return render(request,'home1.html',context)  
     
@@ -253,20 +265,44 @@ def portfolio(request):
                 obj=portfolioDb.objects.filter(author_id=Id)[0].compnay
                 for i in cmp:
                     if i not in obj.keys():
-                        obj[i]=0
+                        obj[i]=1
                 portfolioDb.objects.filter(author_id=Id).update(compnay=obj)   
                 Id1=1     
 
+            dictobj=portfolioDb.objects.filter(author_id=Id)[0].compnay
+            context={'CompanyNames':CompanyNames,'Id1':Id1,'cmp':dictobj,"add":1}
+            return render(request,'portfolio.html',context)
+        
+        
+        elif "apply2" in request.POST:
+            Id=User.objects.filter(username=request.user)[0].id 
+            dictobj=portfolioDb.objects.filter(author_id=Id)[0].compnay
+            context={'CompanyNames':CompanyNames,'Id1':1,'cmp':dictobj}
+            return render(request,'portfolio.html',context)
+        
+        else:
+             Id=User.objects.filter(username=request.user)[0].id
+             dictobj=portfolioDb.objects.filter(author_id=Id)[0].compnay
+             
+             user_obj={}
+             for i in dictobj.keys():
+                 user_obj[i]=request.POST.get(i)
 
-                context={'CompanyNames':CompanyNames,'Id1':Id1,'cmp':cmp}
-                return render(request,'portfolio.html',context)
+             portfolioDb.objects.filter(author_id=Id).update(compnay=user_obj)
+             
+             dictobj=portfolioDb.objects.filter(author_id=Id)[0].compnay
+             context={'CompanyNames':CompanyNames,'Id1':1,'cmp':dictobj}
+             return render(request,'portfolio.html',context)
+             
     else:
-        print(request.user)
+        #print(request.user)
         context={'CompanyNames':CompanyNames}
         return render(request,'portfolio.html',context) 
 
 
 def Homepage(request):
+    
+    
     Array=""
     for i in data:   
         Array+=f"'BSE:{data[i]}',"
@@ -297,5 +333,34 @@ def Homepage(request):
             </script>
         </div>
     </div> '''
-    context={'CompanyNames':CompanyNames,'code':code}
+
+    code2='''
+<div class="tradingview-widget-container">
+  <div id="tradingview_f7833"></div>
+  <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/symbols/BSE-SENSEX/" rel="noopener" target="_blank"><span class="blue-text">NIFTY chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+  new TradingView.widget(
+  {
+  "width": 820,
+  "height": 570,
+  "symbol": "BSE:SENSEX",
+  "interval": "D",
+  "timezone": "Etc/UTC",
+  "theme": "dark",
+  "style": "1",
+  "locale": "in",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "allow_symbol_change": true,
+  "container_id": "tradingview_f7833"
+}
+  );
+  </script>
+</div>
+''' 
+    
+    recommend=recommend_stocks()
+    
+    context={'CompanyNames':CompanyNames,'code':code2,'home':1,'recommend':recommend}
     return render(request,'home1.html',context)
